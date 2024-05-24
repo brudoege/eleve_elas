@@ -68,7 +68,7 @@ Exercício 2
 4-sair
 
 Deseja incluir outro nome (s/n)?
-*/
+
 
 
 int opcao = 0;
@@ -159,6 +159,118 @@ while (opcao != 7)
             Console.ReadKey();
             break;
         case 7:
+            Console.WriteLine("\nTchau!");
+            Console.ReadKey();
+            break;
+        default:
+            Console.WriteLine("\nOpção inválida!");
+            Console.ReadKey();
+            break;
+    }
+}
+
+*/
+
+/*
+Exercício 3
+Criar um programa que simule o processamento de pedidos em um restaurante
+Cada pedido é representado por um número único 
+O restaurante tem um fila de pedidos a serem preparados e uma pilha de pedidos concluídos
+
+*/
+
+using System.Collections;
+
+int opcao = 0;
+Queue<string> pedidosPendentes = new Queue<string>();
+Stack<string> pedidosConcluidos = new Stack<string>();
+bool continuar = true;
+
+while (opcao != 5)
+{
+    Console.Clear();
+    Console.WriteLine("Menu:");
+    Console.WriteLine("1-Adicionar pedido");
+    Console.WriteLine("2-Preparar pedido");
+    Console.WriteLine("3-Visualizar pedidos pendentes");
+    Console.WriteLine("4-Visualizar pedidos concluídos");
+    Console.WriteLine("5-Sair");
+    Console.Write("\nInforme a opção: ");
+    opcao = Convert.ToInt32(Console.ReadLine());
+
+    continuar = true;
+
+    switch (opcao)
+    {
+        case 1:
+            while (continuar == true)
+            {
+                Console.Clear();
+                Console.Write("Informe um pedido: ");
+                pedidosPendentes.Enqueue(Console.ReadLine());
+                Console.Write("\nDeseja continuar(s/n)? ");
+                if (Console.ReadLine() == "s")
+                    continuar = true;
+                else
+                    continuar = false;
+            }
+            break;
+        case 2:
+            while (continuar == true)
+            {
+                Console.Clear();
+                if (pedidosPendentes.Count > 0)
+                {
+                    string pedido = pedidosPendentes.Peek();
+                    Console.WriteLine($"Preparando pedido: {pedido}");
+                    pedidosConcluidos.Push(pedido);
+                    pedidosPendentes.Dequeue();
+
+                    Console.Write("\nDeseja continuar(s/n)? ");
+                    if (Console.ReadLine() == "s")
+                        continuar = true;
+                    else
+                        continuar = false;
+                }
+                else
+                {
+                    Console.WriteLine($"Não existem pedidos pendentes");
+                    continuar = false;
+                    Console.ReadKey();
+                }
+            }
+            break;
+        case 3:
+            Console.Clear();
+            if (pedidosPendentes.Count > 0)
+            {
+                foreach (string pedido in pedidosPendentes)
+                {
+                    Console.WriteLine($"Pedido pendente: {pedido}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Não existem pedidos pendentes");
+            }
+            Console.ReadKey();
+            break;
+        case 4:
+            Console.Clear();
+            if (pedidosConcluidos.Count > 0)
+            {
+                foreach (string pedido in pedidosConcluidos)
+                {
+                    Console.WriteLine($"Pedido concluído: {pedido}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Não existem pedidos concluídos");
+            }
+            Console.ReadKey();
+            break;
+        case 5:
             Console.WriteLine("\nTchau!");
             Console.ReadKey();
             break;
